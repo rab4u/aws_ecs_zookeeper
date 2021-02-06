@@ -24,6 +24,8 @@ To understand more about this setup, please visit the link -
 2. AWS Credentials or Profile (Preferably power user) 
 3. AWS VPC with NAT/Internet gateway to reach internet (This is required for ECS Cluster to communicate with the ECS services and to pull docker images from public Docker Hub. https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Scenario2.htm)
 4. Terraform >= 0.14
+5. AWS S3 Bucket to store terraform state remotely
+6. EC2 key pair (later used to SSH into the ec2 instances for troubleshooting)
 
 ## Setup
 1. Clone this repo
@@ -42,3 +44,40 @@ git clone https://github.com/rab4u/aws_ecs_zookeeper.git
 | env                    	| string       	| dev                                                	| ENVIRONMENT                                                                                                                                                                                                       	|
 | aws_region             	| string       	| eu-central-1                                       	| AWS REGION                                                                                                                                                                                                        	|
 | vpc_id                 	| string       	| ""                                                 	| VPC ID. please provide VPC ID                                                                                                                                                                                     	|
+
+3. Export AWS credentials
+For AWS Profile (https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html)
+```
+export AWS_PROFILE=<<profile name>>
+export AWS_SDK_LOAD_CONFIG=1
+```
+For AWS Credentials
+```
+export AWS_ACCESS_KEY_ID="<<Access key id>>"
+export AWS_SECRET_ACCESS_KEY="<<Secret Access key>>"
+# IF SESSION TOKEN IS PRESENT
+export AWS_SESSION_TOKEN="<<Session Token>>"
+```
+
+4. Export Terraform init parameters
+```
+export bucket="<<AWS S3 bucket name>>"
+export TF_CLI_ARGS_init="-backend-config=\"bucket=${bucket}\""
+```
+
+5. Initialize terraform
+```
+terraform init
+```
+6. Check the terraform plan (around 28 resources will be created)
+```
+terraform plan
+```
+7. terraform apply
+```
+terraform apply --var-file=vars-dev.tfvars 
+```
+
+Hurrah !! In a few minutes Zookeeper cluster will be up and running 
+
+## Troubleshooting 
