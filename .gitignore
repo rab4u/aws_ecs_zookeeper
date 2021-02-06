@@ -29,4 +29,4 @@ override.tf.json
 # example: *tfplan*
 /deploy/zoo_cluster/.terraform.lock.hcl
 /zookeeper_cluster_setup/.terraform.lock.hcl
-/.idea/
+/.idea
