@@ -45,6 +45,7 @@ git clone https://github.com/rab4u/aws_ecs_zookeeper.git
 | vpc_id                 	| string       	| ""                                                 	| VPC ID. please provide VPC ID                                                                                                                                                                                     	|
 
 3. Export AWS credentials
+
 For AWS Profile (https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html)
 ```
 export AWS_PROFILE=<<profile name>>
@@ -87,13 +88,13 @@ deployed in the same VPC can reach Zookeeper endpoints.
  - Zookeeper endpoint URL format for metrics: ```<<IP ADDRESS>>:7000/metrics```
 
 ## 5. Troubleshooting 
-###### No EC2 instances are attached to the ECS cluster : 
+##### No EC2 instances are attached to the ECS cluster : 
 Probably, ECS cluster is not able to communicate with ECS services of AWS. 
 1. Check whether the instances are able to reach the internet (This is required to communicate with AWS ECS services)
 2. If private subnet IP addresses are used while launching ECS cluster please, make sure there is a
 public subnet with NAT gateway and proper route - follow the instructions in this link - https://zookeeper.apache.org/doc/r3.5.3-beta/zookeeperReconfig.html
 
-###### Invalid index. count.index is n, var.network_details is list of object with n elements
+##### Invalid index. count.index is n, var.network_details is list of object with n elements
 One or more IP addresses are doesn't belong to any subnet in the VPC ID provided. 
 1. please make sure VPC ID is correct
 2. check the IP addresses are in the range of VPC subnets
