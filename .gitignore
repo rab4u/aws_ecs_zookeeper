@@ -27,6 +27,5 @@ override.tf.json
 
 # Include tfplan files to ignore the plan output of command: terraform plan -out=tfplan
 # example: *tfplan*
-/deploy/zoo_cluster/.terraform.lock.hcl
-/zookeeper_cluster_setup/.terraform.lock.hcl
 /.idea
+/.terraform.lock.hcl

@@ -1,13 +1,13 @@
 # MODULE TO MAP IP TO SUBNET
 module "ip_to_subnet_mapper" {
-  source          = "./modules/ip_subnet_mapping_module"
+  source          = "./terraform_modules/ip_subnet_mapping_module"
   network_details = var.server_ip_address_list
   vpc_id          = var.vpc_id
 }
 
 # MODULE TO CREATE ECS CLUSTER
 module "ecs_cluster" {
-  source                = "./modules/ecs_module"
+  source                = "./terraform_modules/ecs_module"
   name                  = local.name
   network_details       = module.ip_to_subnet_mapper.ip_to_subnet_output
   security-group        = module.security-group.this_security_group_id

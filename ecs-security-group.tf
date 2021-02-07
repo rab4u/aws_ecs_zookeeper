@@ -4,14 +4,13 @@ data "aws_vpc" "vpc" {
 
 module "security-group" {
   source  = "terraform-aws-modules/security-group/aws"
-  version = "3.4.0"
+  version = "3.17.0"
 
   # REQUIRED PARAMS
   vpc_id      = var.vpc_id
   name        = local.name
   description = "${local.name} security group"
 
-  # OPTIONAL PARAMS
   ingress_with_cidr_blocks = [
     {
       from_port   = "22"
